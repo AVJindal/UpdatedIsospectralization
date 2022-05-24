@@ -2,7 +2,7 @@ from scipy import sparse
 #import matplotlib.pyplot as plt
 import os
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 import scipy
 
@@ -59,7 +59,9 @@ def tfeval(X):
     config = tf.ConfigProto(device_count={'CPU': 1, 'GPU': 0}, 
     allow_soft_placement = False, gpu_options=gpu_options)
     sess = tf.Session(config=config)
-    tf.global_variables_initializer().run(session=sess)
+    globalVarsInitializer = tf.global_variables_initializer()
+    sess.run(globalVarsInitializer)
+    #tf.global_variables_initializer().run(session=sess)
     #[tfEvals, tfEvecs] = tf.self_adjoint_eig(X)
     #[evals, evecs]  = sess.run( [tfEvals, tfEvecs] );
     x = sess.run(tf.identity(X) );

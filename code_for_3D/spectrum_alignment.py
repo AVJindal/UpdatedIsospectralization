@@ -1,13 +1,15 @@
 from scipy import sparse
 #import matplotlib.pyplot as plt
 import os
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 import scipy
 from IPython.display import clear_output
 
 from shape_library import *
-    
+
+tf.disable_eager_execution()
+
 class OptimizationParams:
     def __init__(self, smoothing='displacement'):
         self.checkpoint = 100

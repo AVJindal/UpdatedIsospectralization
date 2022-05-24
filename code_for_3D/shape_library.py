@@ -1,13 +1,14 @@
 from scipy import sparse
 #import matplotlib.pyplot as plt
 import os
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 import scipy
 
 from plyfile import PlyData, PlyElement
 import time
 
+tf.disable_eager_execution()
 
 def totuple(a):
     return [ tuple(i) for i in a]

@@ -2,14 +2,16 @@ from scipy import sparse
 #import matplotlib.pyplot as plt
 import os
 import sys
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
 import scipy
 from shape_library import *
 from IPython.display import clear_output
 
 import matplotlib.pyplot as plt
-    
+
+tf.disable_eager_execution()
+
 class OptimizationParams:
     def __init__(self, smoothing='displacement'):
         
