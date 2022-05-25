@@ -25,7 +25,7 @@ params.plot=False
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/bell', params = params)
 
 
-#My Apple logo - won't run cause I need the evals file
+# #My Apple logo - won't run because files are formatted badly
 vert_triv('data/Apple/Apple Logo.obj', 'data/Apple/')
 [VERT_t, TRIV_t] = load_mesh('data/Apple/')
 evals_t = calc_evals(VERT_t,TRIV_t)
