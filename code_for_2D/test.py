@@ -11,12 +11,19 @@ params.plot=False
 [VERT, TRIV] = load_mesh('data/oval/');
 [VERT,TRIV] = resample(VERT, TRIV, 300)
 
-[VERT_t, TRIV_t] = load_mesh('data/mickey/')
-evals_t = calc_evals(VERT_t,TRIV_t)
-mesh = prepare_mesh(VERT,TRIV,'float32')
-run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/mickey', params = params)
+# [VERT_t, TRIV_t] = load_mesh('data/mickey/')
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# mesh = prepare_mesh(VERT,TRIV,'float32')
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/mickey', params = params)
 
 #[VERT_t, TRIV_t] = load_mesh('data/bell/')
 #evals_t = calc_evals(VERT_t,TRIV_t)
 #mesh = prepare_mesh(VERT,TRIV,'float32')
 #run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/bell', params = params)
+
+
+#My Apple logo - won't run cause I need the VERT, TRIV and evals files
+# [VERT_t, TRIV_t] = load_mesh('data/Apple/')
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# mesh = prepare_mesh(VERT,TRIV,'float32')
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Apple', params = params)
