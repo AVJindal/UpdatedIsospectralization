@@ -15,14 +15,19 @@ params.plot=False
 [VERT, TRIV] = load_mesh('data/oval/');
 [VERT,TRIV] = resample(VERT, TRIV, 300)
 
+#me checking if evals listed and calculated are the same (update: in the beginning: yes, later on: not really)
+# # eval = calc_evals(VERT,TRIV)
+# # np.savetxt('data/oval/eval.txt', eval)
+
 # # Square setup (stepfunc)
 # vert_triv('data/Square/Square.obj', 'data/Square/')
 # [VERT, TRIV] = load_mesh('data/Square/');
-# [VERT,TRIV] = resample(VERT, TRIV, 300)
+# # [VERT,TRIV] = resample(VERT, TRIV, 300)
 
 # # Circle Setup (Apple)
 # vert_triv('data/Circle/Circle.obj', 'data/Circle/')
 # [VERT, TRIV] = load_mesh('data/Circle/');
+# # [VERT, TRIV] = load_ply('data/Circle/Circle2.ply');
 # [VERT,TRIV] = resample(VERT, TRIV, 300)
 
 # #Mickey
@@ -46,17 +51,28 @@ params.plot=False
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Apple', params = params)
 
 # # Step function-looking one (2D pneuflex?)
-vert_triv('data/Stepfunc/Stepfunc.obj', 'data/Stepfunc/')
-[VERT_t, TRIV_t] = load_mesh('data/Stepfunc/')
-#[VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
-evals_t = calc_evals(VERT_t,TRIV_t)
-mesh = prepare_mesh(VERT,TRIV,'float32')
-run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Stepfunc', params = params)
+# vert_triv('data/Stepfunc/Stepfunc.obj', 'data/Stepfunc/')
+# [VERT_t, TRIV_t] = load_mesh('data/Stepfunc/')
 
-# # Flower (mine)
-# vert_triv('data/Flower/Flower.obj', 'data/Flower/')
-# [VERT_t, TRIV_t] = load_mesh('data/Flower/')
+# [VERT_t, TRIV_t] = load_ply('data/Stepfunc/stepfunc2.ply')
 # [VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
 # evals_t = calc_evals(VERT_t,TRIV_t)
 # mesh = prepare_mesh(VERT,TRIV,'float32')
-# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Flower', params = params)
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Stepfunc', params = params)
+
+# # Flower (mine)
+# vert_triv('data/Flower/Flower.obj', 'data/Flower/')
+#
+[VERT_t, TRIV_t] = load_ply('data/Flower/Flower2.ply')
+[VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
+evals_t = calc_evals(VERT_t,TRIV_t)
+mesh = prepare_mesh(VERT,TRIV,'float32')
+run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Flower', params = params)
+
+
+## Heart (mine) - actually works!
+# [VERT_t, TRIV_t] = load_ply('data/Heart/heart.ply')
+# #[VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# mesh = prepare_mesh(VERT,TRIV,'float32')
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Heart', params = params)

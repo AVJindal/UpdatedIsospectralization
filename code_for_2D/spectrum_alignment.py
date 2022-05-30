@@ -19,7 +19,7 @@ class OptimizationParams:
         self.plot=False
         
         self.evals = [20]
-        self.numsteps = 5000
+        self.numsteps = 8000
         self.remesh_step = 500
         
         self.decay_target = 0.05
@@ -195,7 +195,6 @@ def run_optimization(mesh, target_evals, out_path, params = OptimizationParams()
 
           tic()
           for step in range(step+1,params.numsteps):
-            
             if((step)%params.remesh_step==0):
                 print("RECOMPUTING TRIANGULATION at step %d" % step)
                 break;
@@ -210,7 +209,7 @@ def run_optimization(mesh, target_evals, out_path, params = OptimizationParams()
                     _, er, ee, Xopt_t = session.run([graph.train_op_bound,graph.cost_bound,graph.cost_evals,graph.X], feed_dict=feed_dict)
                 
                 iterations.append((step, nevals, er, ee,int(step/10)%2))
-                
+
                 
                 if ( (step) % params.checkpoint == 0 or step==(params.numsteps-1) or step==1): 
                     toc()

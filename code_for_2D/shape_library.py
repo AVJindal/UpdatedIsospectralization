@@ -238,12 +238,17 @@ def prepare_mesh(VERT,TRIV,dtype='float32'):
     ord_list = []
     ord_list.append(bed[0,:])
     avail[0] = False
+    # print(bed)
     for i in range(bed.shape[0]-1):
         nx = np.logical_and(np.sum(bed==ord_list[-1][1],axis=1) ,avail)
         if(np.sum(nx)==0):
             nx = np.logical_and(np.sum(bed==ord_list[-1][0],axis=1) ,avail)
         avail = np.logical_and(avail, 1-nx)
+        # print('bed', bed)
+        # print("nx", nx)
+        # print('thing', bed[nx,:])
         nx_e = bed[nx,:][0]
+        # print("nx_e is:", nx_e)
         if(nx_e[0] != ord_list[-1][1]):
             nx_e = nx_e[[1,0]]
         ord_list.append(nx_e)
