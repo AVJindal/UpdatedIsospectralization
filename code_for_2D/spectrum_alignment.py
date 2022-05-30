@@ -124,7 +124,8 @@ def build_graph(mesh, evals, nevals, step=1.0, params=OptimizationParams()):
         #Normalized Laplacian
         Si = tf.diag(tf.sqrt(1/S[:,0]))
         Lap =  tf.matmul(Si,tf.matmul(Lx,Si));
-        
+
+
         #Spectral decomposition
         [graph.evals,v]  = tf.self_adjoint_eig( Lap )
         graph.cost_evals = 1e1*tf.nn.l2_loss( (graph.evals[0:nevals]-evals[0:nevals]) * (1/np.asarray(range(1,nevals+1),'float32'))) # \
@@ -157,9 +158,9 @@ def build_graph(mesh, evals, nevals, step=1.0, params=OptimizationParams()):
         
         graph.train_op_bound = clipped_grad_minimize(graph.cost_bound, [dXb])
         graph.train_op_inner = clipped_grad_minimize(graph.cost_inner, [dXi])
-                
+
         return graph
-        
+
     
     
 def run_optimization(mesh, target_evals, out_path, params = OptimizationParams() ):
