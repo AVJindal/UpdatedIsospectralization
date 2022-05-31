@@ -13,6 +13,13 @@ tf.disable_eager_execution()
 def totuple(a):
     return [ tuple(i) for i in a]
 
+def load_ply(fname): #ADDED BY ME, DELETE LATER
+    plydata = PlyData.read(fname)
+    VERT = np.asarray([ (v[0],v[1],v[2]) for v in plydata.elements[0].data])
+    TRIV = np.asarray([ t[0] for t in plydata.elements[1].data])
+    return VERT,TRIV
+
+
 def TicTocGenerator():
     # Generator that returns time differences
     ti = 0           # initial time

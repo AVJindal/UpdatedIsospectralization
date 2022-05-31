@@ -19,7 +19,7 @@ class OptimizationParams:
         self.plot=False
         
         self.evals = [20]
-        self.numsteps = 8000
+        self.numsteps = 5000
         self.remesh_step = 500
         
         self.decay_target = 0.05

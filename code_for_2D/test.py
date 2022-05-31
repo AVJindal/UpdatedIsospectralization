@@ -8,7 +8,7 @@ from Conversions import *
 
 params = OptimizationParams()
 params.evals = [20]
-params.numsteps = 5000
+params.numsteps = 8000
 params.plot=False
 
 # # Oval Setup (Bell, Mickey)

@@ -10,6 +10,7 @@ from shape_library import *
 
 tf.disable_eager_execution()
 
+
 class OptimizationParams:
     def __init__(self, smoothing='displacement'):
         self.checkpoint = 100
@@ -17,24 +18,24 @@ class OptimizationParams:
         self.evals = [10,20,30]
         self.smoothing = smoothing
         self.decay_target = 0.01
-        
+
         if(smoothing=='displacement'):
             self.curvature_reg = 2e3
             self.smoothness_reg = 2e3
         else:
             self.curvature_reg = 1e5
             self.smoothness_reg = 5e4
-        
+
         self.volume_reg = 1e1
         self.l2_reg = 2e6
-        
+
         self.opt_step = 0.00025
         self.min_eval_loss = 0.05
-        
-        
-def tf_calc_lap(mesh,VERT): 
+
+
+def tf_calc_lap(mesh,VERT):
     [Xori,TRIV,n, m, Ik, Ih, Ik_k, Ih_k, Tpi, Txi, Tni, iM, Windices, Ael, Bary] = mesh
-    
+
     dtype='float32'
     if(VERT.dtype=='float64'):
         dtype='float64'
@@ -46,8 +47,8 @@ def tf_calc_lap(mesh,VERT):
 
     def  fAk(Ik,Ik_k):
         Ikp=np.abs(Ik);
-        Sk = tf.matmul(Ikp,L)/2    
-        SkL = Sk-L;    
+        Sk = tf.matmul(Ikp,L)/2
+        SkL = Sk-L;
         Ak = Sk*(tf.matmul(Ik_k[:,:,0],Sk)-tf.matmul(Ik_k[:,:,0],L))\
                        *(tf.matmul(Ik_k[:,:,0],Sk)-tf.matmul(Ik_k[:,:,1],L))\
                        *(tf.matmul(Ik_k[:,:,0],Sk)-tf.matmul(Ik_k[:,:,2],L))
