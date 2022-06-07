@@ -22,7 +22,7 @@ params.plot=False
 # # Square setup (stepfunc)
 # vert_triv('data/Square/Square.obj', 'data/Square/')
 # [VERT, TRIV] = load_mesh('data/Square/');
-# # [VERT,TRIV] = resample(VERT, TRIV, 300)
+# [VERT,TRIV] = resample(VERT, TRIV, 300)
 
 # # Circle Setup (Apple)
 # vert_triv('data/Circle/Circle.obj', 'data/Circle/')
@@ -63,11 +63,19 @@ params.plot=False
 # # Flower (mine)
 # vert_triv('data/Flower/Flower.obj', 'data/Flower/')
 #
-[VERT_t, TRIV_t] = load_ply('data/Flower/Flower2.ply')
+# [VERT_t, TRIV_t] = load_ply('data/Flower/Flower2.ply')
+# [VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# mesh = prepare_mesh(VERT,TRIV,'float32')
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Flower', params = params)
+
+# #Trillium
+[VERT_t, TRIV_t] = load_ply('data/Trillium/Trillium.ply')
 [VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
 evals_t = calc_evals(VERT_t,TRIV_t)
 mesh = prepare_mesh(VERT,TRIV,'float32')
-run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Flower', params = params)
+run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Trillium', params = params)
+
 
 
 ## Heart (mine) - actually works!
