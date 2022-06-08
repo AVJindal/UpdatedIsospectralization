@@ -21,7 +21,7 @@ params.plot=False
 
 # # Square setup (stepfunc)
 # vert_triv('data/Square/Square.obj', 'data/Square/')
-# [VERT, TRIV] = load_mesh('data/Square/');
+# [VERT, TRIV] = load_ply('data/Square/Round Square.ply');
 # [VERT,TRIV] = resample(VERT, TRIV, 300)
 
 # # Circle Setup (Apple)
@@ -63,19 +63,18 @@ params.plot=False
 # # Flower (mine)
 # vert_triv('data/Flower/Flower.obj', 'data/Flower/')
 #
-# [VERT_t, TRIV_t] = load_ply('data/Flower/Flower2.ply')
-# [VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
+# [VERT_t, TRIV_t] = load_ply('data/Flower/Flower.ply')
+# #[VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
 # evals_t = calc_evals(VERT_t,TRIV_t)
 # mesh = prepare_mesh(VERT,TRIV,'float32')
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Flower', params = params)
 
 # #Trillium
-[VERT_t, TRIV_t] = load_ply('data/Trillium/Trillium.ply')
-[VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
-evals_t = calc_evals(VERT_t,TRIV_t)
-mesh = prepare_mesh(VERT,TRIV,'float32')
-run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Trillium', params = params)
-
+# [VERT_t, TRIV_t] = load_ply('data/Trillium/Trillium.ply')
+# #[VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# mesh = prepare_mesh(VERT,TRIV,'float32')
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Trillium', params = params)
 
 
 ## Heart (mine) - actually works!
@@ -84,3 +83,30 @@ run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Trilli
 # evals_t = calc_evals(VERT_t,TRIV_t)
 # mesh = prepare_mesh(VERT,TRIV,'float32')
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Heart', params = params)
+
+## Star
+# [VERT_t, TRIV_t] = load_ply('data/Star/Star2.ply')
+# #[VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# mesh = prepare_mesh(VERT,TRIV,'float32')
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Star', params = params)
+
+## Plane
+# [VERT_t, TRIV_t] = load_ply('data/Plane/Plane.ply')
+# # [VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# mesh = prepare_mesh(VERT,TRIV,'float32')
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Plane', params = params)
+
+# # Square
+# [VERT_t, TRIV_t] = load_ply('data/Square/Round Square.ply');
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# mesh = prepare_mesh(VERT,TRIV,'float32')
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Square', params = params)
+
+# # Circle
+[VERT_t, TRIV_t] = load_ply('data/Circle/Circle2.ply');
+# [VERT_t,TRIV_T] = resample(VERT_t, TRIV_t, 300)
+evals_t = calc_evals(VERT_t,TRIV_t)
+mesh = prepare_mesh(VERT,TRIV,'float32')
+run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Circle', params = params)

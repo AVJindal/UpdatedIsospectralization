@@ -1,5 +1,8 @@
 from shape_library import *
 from spectrum_alignment import *
+
+from Conversions import *
+
 #import os
 #os.environ["CUDA_VISIBLE_DEVICES"]="1"
 
@@ -9,8 +12,8 @@ params.evals = [20]
 params.numsteps = 10000
 
 
-# [VERT, TRIV] = load_mesh('data/round_cuber_1000/'); #Rounded Cube
-[VERT, TRIV] = load_ply('data/Sphere/Sphere.ply')    #Sphere
+[VERT, TRIV] = load_mesh('data/round_cuber_1000/'); #Rounded Cube
+# [VERT, TRIV] = load_ply('data/Sphere/Sphere.ply')    #Sphere
 mesh = prepare_mesh(VERT,TRIV,'float32')
 
 ## Cube with extrusion
@@ -34,11 +37,19 @@ mesh = prepare_mesh(VERT,TRIV,'float32')
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Torus', params = params)
 
 ## Dragon
-[VERT_t, TRIV_t] = load_ply('data/Dragon/dragon (4).ply')
-evals_t = calc_evals(VERT_t,TRIV_t)
-run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Dragon', params = params)
+# [VERT_t, TRIV_t] = load_ply('data/Dragon/dragon (4).ply')
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Dragon', params = params)
 
 ##Small Sphere
-# [VERT_t, TRIV_t] = load_ply('data/Small Sphere/Small Sphere.ply')
+[VERT_t, TRIV_t] = load_ply('data/Small Sphere/Small Sphere.ply')
+evals_t = calc_evals(VERT_t,TRIV_t)
+run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/SmallSphere', params = params)
+
+## Egg
+# vert_triv('data/Egg/Egg.obj', 'data/Egg/')
+# [VERT_t, TRIV_t] = load_mesh('data/Egg/')
+# [VERT_t, TRIV_t] = load_ply('data/Egg/Eggshell.ply')
 # evals_t = calc_evals(VERT_t,TRIV_t)
-# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/SmallSphere', params = params)
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Egg', params = params)
+
