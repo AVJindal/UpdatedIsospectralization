@@ -3,8 +3,8 @@ from spectrum_alignment import *
 
 from Conversions import *
 
-#import os
-#os.environ["CUDA_VISIBLE_DEVICES"]="1"
+# import os
+# os.environ["CUDA_VISIBLE_DEVICES"]="1"
 
 params = OptimizationParams()
 params.evals = [20]
@@ -12,10 +12,10 @@ params.numsteps = 8000
 params.plot=False
 
 # # Oval Setup (Bell, Mickey)
-[VERT, TRIV] = load_mesh('data/oval/');
-[VERT,TRIV] = resample(VERT, TRIV, 300)
+# [VERT, TRIV] = load_mesh('data/oval/');
+# [VERT,TRIV] = resample(VERT, TRIV, 300)
 
-#me checking if evals listed and calculated are the same (update: in the beginning: yes, later on: not really)
+# me checking if evals listed and calculated are the same (update: in the beginning: yes, later on: not really)
 # # eval = calc_evals(VERT,TRIV)
 # # np.savetxt('data/oval/eval.txt', eval)
 
@@ -24,10 +24,18 @@ params.plot=False
 # [VERT, TRIV] = load_ply('data/Square/Round Square.ply');
 # [VERT,TRIV] = resample(VERT, TRIV, 300)
 
-# # Circle Setup (Apple)
+#stubby star
+# [VERT, TRIV] = load_ply('data/Star/SmoothStar.ply');
+# [VERT,TRIV] = resample(VERT, TRIV, 300)
+
+# Circle Setup (Apple)
 # vert_triv('data/Circle/Circle.obj', 'data/Circle/')
 # [VERT, TRIV] = load_mesh('data/Circle/');
 # # [VERT, TRIV] = load_ply('data/Circle/Circle2.ply');
+# [VERT,TRIV] = resample(VERT, TRIV, 300)
+
+#Donut - does not work at all - it is not simply connected but it should still work because they do similar examples in the paper
+# [VERT, TRIV] = load_ply('data/Donut/Donut.ply');
 # [VERT,TRIV] = resample(VERT, TRIV, 300)
 
 # #Mickey
@@ -84,12 +92,19 @@ params.plot=False
 # mesh = prepare_mesh(VERT,TRIV,'float32')
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Heart', params = params)
 
-## Star
+# ## Star
 # [VERT_t, TRIV_t] = load_ply('data/Star/Star2.ply')
-# #[VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
+# [VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
 # evals_t = calc_evals(VERT_t,TRIV_t)
 # mesh = prepare_mesh(VERT,TRIV,'float32')
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Star', params = params)
+
+##Stubby star
+# [VERT_t, TRIV_t] = load_ply('data/Star/SmoothStar.ply')
+# # [VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# mesh = prepare_mesh(VERT,TRIV,'float32')
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/SmoothStar', params = params)
 
 ## Plane
 # [VERT_t, TRIV_t] = load_ply('data/Plane/Plane.ply')
@@ -105,8 +120,15 @@ params.plot=False
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Square', params = params)
 
 # # Circle
-[VERT_t, TRIV_t] = load_ply('data/Circle/Circle2.ply');
-# [VERT_t,TRIV_T] = resample(VERT_t, TRIV_t, 300)
-evals_t = calc_evals(VERT_t,TRIV_t)
-mesh = prepare_mesh(VERT,TRIV,'float32')
-run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Circle', params = params)
+# [VERT_t, TRIV_t] = load_ply('data/Circle/Circle2.ply');
+# # [VERT_t,TRIV_T] = resample(VERT_t, TRIV_t, 300)
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# mesh = prepare_mesh(VERT,TRIV,'float32')
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Circle', params = params)
+
+#Square donut - Does not work at all :( (read above about donut initial mesh)
+# [VERT_t, TRIV_t] = load_ply('data/Donut/SquareDonut.ply');
+# # [VERT_t,TRIV_T] = resample(VERT_t, TRIV_t, 300)
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# mesh = prepare_mesh(VERT,TRIV,'float32')
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Square Donut', params = params)

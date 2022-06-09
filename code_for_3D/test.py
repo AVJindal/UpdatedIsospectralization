@@ -42,14 +42,14 @@ mesh = prepare_mesh(VERT,TRIV,'float32')
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Dragon', params = params)
 
 ##Small Sphere
-[VERT_t, TRIV_t] = load_ply('data/Small Sphere/Small Sphere.ply')
-evals_t = calc_evals(VERT_t,TRIV_t)
-run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/SmallSphere', params = params)
+# [VERT_t, TRIV_t] = load_ply('data/Small Sphere/Small Sphere.ply')
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/SmallSphere', params = params)
 
 ## Egg
 # vert_triv('data/Egg/Egg.obj', 'data/Egg/')
 # [VERT_t, TRIV_t] = load_mesh('data/Egg/')
-# [VERT_t, TRIV_t] = load_ply('data/Egg/Eggshell.ply')
-# evals_t = calc_evals(VERT_t,TRIV_t)
-# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Egg', params = params)
+[VERT_t, TRIV_t] = load_ply('data/Egg/Eggshell.ply')
+evals_t = calc_evals(VERT_t,TRIV_t)
+run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Egg', params = params)
 
