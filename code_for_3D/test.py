@@ -14,7 +14,15 @@ params.numsteps = 10000
 
 [VERT, TRIV] = load_mesh('data/round_cuber_1000/'); #Rounded Cube
 # [VERT, TRIV] = load_ply('data/Sphere/Sphere.ply')    #Sphere
+# [VERT, TRIV] = load_ply('data/Egg/EggShell.ply')    #Egg
+# [VERT, TRIV] = load_ply('data/Cylinder/Cylinder2.ply')    #Cylinder - doesn't work ! interessante
+# [VERT, TRIV] = load_ply('data/Cone/Cone(70)2.ply')    #Cone (70)
 mesh = prepare_mesh(VERT,TRIV,'float32')
+
+## collecting Eigenvalues
+# eval = calc_evals(VERT,TRIV)
+#np.savetxt('Expected values/Round Cube EVals.txt', eval)
+
 
 ## Cube with extrusion
 # [VERT_t, TRIV_t] = load_mesh('data/round_cuber_out_1000/')
@@ -26,8 +34,8 @@ mesh = prepare_mesh(VERT,TRIV,'float32')
 # evals_t = calc_evals(VERT_t,TRIV_t)
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Bunny', params = params)
 
-## Cone - doesn't work at all
-# [VERT_t, TRIV_t] = load_ply('data/Cone/Cone.ply')
+## Cone
+# [VERT_t, TRIV_t] = load_ply('data/Cone/Cone(50)3.ply')
 # evals_t = calc_evals(VERT_t,TRIV_t)
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Cone', params = params)
 
@@ -49,7 +57,16 @@ mesh = prepare_mesh(VERT,TRIV,'float32')
 ## Egg
 # vert_triv('data/Egg/Egg.obj', 'data/Egg/')
 # [VERT_t, TRIV_t] = load_mesh('data/Egg/')
-[VERT_t, TRIV_t] = load_ply('data/Egg/Eggshell.ply')
-evals_t = calc_evals(VERT_t,TRIV_t)
-run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Egg', params = params)
+# [VERT_t, TRIV_t] = load_ply('data/Egg/Eggshell.ply')
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Egg', params = params)
+
+## Cylinder
+# [VERT_t, TRIV_t] = load_ply('data/Cylinder/Cylinder2.ply')
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Cylinder', params = params)
+
+## My prism eigenvalues
+evals_t= prism_evals(2,3,10)
+run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/2x3x10frcube', params = params)
 

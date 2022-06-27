@@ -43,3 +43,17 @@ def vert_triv(object, path):
     # not sure if I need these lines, we'll see I guess
     # np.savetxt("%s/mesh.vert" %path, vertices)
     # np.savetxt("%s/mesh.triv" %path, faces)
+
+
+def prism_evals(L, H, D):
+    lim=100
+    evals = []
+    for (n) in range(1, lim):
+        evals.append((n * np.pi / L) )
+        evals.append((n * np.pi / H) )
+        evals.append((n * np.pi / D) )
+        for k in range(1,lim):
+            for i in range(1, lim):
+                evals.append(np.pi*((n/L)**2 +(k/H)**2 + (i/D)**2) ** (1/2))
+    evals.sort()
+    return np.array(evals)

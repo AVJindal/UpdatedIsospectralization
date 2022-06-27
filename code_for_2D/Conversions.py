@@ -28,7 +28,7 @@ def vert_triv(object, path):
                 face.append(string[i:string.find(" ", i)])
                 i = string.find(" ", i) + 1
 
-            #Very ugly but it does what I want... The file still maybe formatted badly however(?)
+            # Very ugly but it does what I want... The file still maybe formatted badly however(?)
             face = str(np.array(list(set(face))))
             face = face.replace("'", "")
             face = face.replace("[", "")
@@ -43,3 +43,12 @@ def vert_triv(object, path):
     # not sure if I need these lines, we'll see I guess
     # np.savetxt("%s/mesh.vert" %path, vertices)
     # np.savetxt("%s/mesh.triv" %path, faces)
+
+
+def rectangle_evals(L, H):
+    evals = []
+    for n in range(1, 200):
+        for k in range(1, 200):
+            evals.append(np.pi * ((k / H)**2 + (n / L) ** 2) ** (1 / 2))
+    evals.sort()
+    return np.array(evals)

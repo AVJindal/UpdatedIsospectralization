@@ -53,6 +53,7 @@ def tf_calc_lap(mesh,VERT):
     Ak = fAk(Ik,Ik_k)
     Ah = fAk(Ih,Ih_k)
 
+
     #sparse representation of the Laplacian matrix
     W = -tf.matmul(Ik,L2)/(8*Ak)-tf.matmul(Ih,L2)/(8*Ah);
 
@@ -94,7 +95,8 @@ def build_graph(mesh, evals, nevals, step=1.0, params=OptimizationParams()):
         if(Xori.dtype=='float16'):
             dtype='float16'
             
-            
+        print(np.shape(ord_list))
+
         #setup cosine decay
         global_step = tf.Variable(step+1.0, name='global_step',trainable=False)
         
@@ -149,7 +151,7 @@ def build_graph(mesh, evals, nevals, step=1.0, params=OptimizationParams()):
         graph.cost_bound = graph.cost_evals + graph.flip_cost + graph.bound_reg_cost
         graph.cost_inner = graph.inner_reg_cost + graph.flip_cost
         
-        optimizer = tf.train.AdamOptimizer(params.learning_rate)
+        optimizer = tf.train.AdamOptimizer(params.learning_rate) #################################################################Optimizer
         
         def clipped_grad_minimize(cost, variables):
             gvs = optimizer.compute_gradients(cost, var_list=variables)

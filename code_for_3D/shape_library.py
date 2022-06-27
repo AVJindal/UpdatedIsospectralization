@@ -121,6 +121,7 @@ def prepare_mesh(VERT,TRIV,dtype='float32'):
             edges[i,j,1]=k
 
 
+
     for ti in range(np.shape(TRIV)[0]):
         setedg(TRIV[ti,0],TRIV[ti,1],TRIV[ti,2])
         setedg(TRIV[ti,2],TRIV[ti,0],TRIV[ti,1])
@@ -146,6 +147,7 @@ def prepare_mesh(VERT,TRIV,dtype='float32'):
             bound_edges[idx,0] = edges_count[i,j]<2
             idx=idx+1;
     #print(idx)
+
 
     Ael = np.zeros(shape=(n,m),dtype=dtype);
     for i in range(n):
@@ -210,6 +212,5 @@ def prepare_mesh(VERT,TRIV,dtype='float32'):
     A = calc_adj_matrix(VERT, TRIV)
     A = np.matmul(np.diag(1/np.sum(A, axis=1)),A);
     Bary = A - np.eye(np.shape(VERT)[0]);
-
 
     return np.asarray(VERT,dtype),TRIV, n, m, Ik, Ih, Ik_k, Ih_k, Tpi, Txi, Tni, iM, Windices, Ael, Bary
