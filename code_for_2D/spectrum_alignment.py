@@ -17,7 +17,7 @@ class OptimizationParams:
         
         self.checkpoint = 100
         self.plot=False
-        
+
         self.evals = [20]
         self.numsteps = 5000
         self.remesh_step = 500
@@ -94,8 +94,7 @@ def build_graph(mesh, evals, nevals, step=1.0, params=OptimizationParams()):
             dtype='float64'
         if(Xori.dtype=='float16'):
             dtype='float16'
-            
-        print(np.shape(ord_list))
+
 
         #setup cosine decay
         global_step = tf.Variable(step+1.0, name='global_step',trainable=False)

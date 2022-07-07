@@ -32,11 +32,10 @@ params.plot=False
 [VERT,TRIV] = resample(VERT, TRIV, 300)
 mesh = prepare_mesh(VERT,TRIV,'float32')
 
-
 # #Mickey
-[VERT_t, TRIV_t] = load_mesh('data/mickey/')
-evals_t = calc_evals(VERT_t,TRIV_t)
-run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/mickey', params = params)
+# [VERT_t, TRIV_t] = load_mesh('data/mickey/')
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/mickey', params = params)
 
 # #Bell
 # [VERT_t, TRIV_t] = load_mesh('data/bell/')
@@ -74,14 +73,14 @@ run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/mickey
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Trillium', params = params)
 
 
-## Heart (mine) - actually works!
+# Heart (mine) - actually works!
 # [VERT_t, TRIV_t] = load_ply('data/Heart/heart.ply')
 # #[VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
 # evals_t = calc_evals(VERT_t,TRIV_t)
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Heart', params = params)
 
 # ## Star
-# [VERT_t, TRIV_t] = load_ply('data/Star/StubbyStar2.ply')
+# [VERT_t, TRIV_t] = load_ply('data/Star/Star2.ply')
 # # [VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
 # evals_t = calc_evals(VERT_t,TRIV_t)
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Star', params = params)
@@ -116,11 +115,20 @@ run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/mickey
 # evals_t = calc_evals(VERT_t,TRIV_t)
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Square Donut', params = params)
 
-[VERT, TRIV] = load_ply('data/Rectangles/1x6.ply');
-# evals_t= rectangle_evals(1,6)
+# evals_t= rectangle_evals(1,0.5)
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/n1to500', params = params)
 
+[VERT_t, TRIV_t] = load_ply('data/Simple shapes/Rect(0.15x0.3).ply');
+evals_t = calc_evals(VERT_t,TRIV_t)
+# evals_t = RATriangle(0.5)
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/RAT(0.5)', params = params)
+
+# [VERT_t, TRIV_t] = load_ply('data/Strings/string(150mm).ply');
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# evals_t = string_evals(150)
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/String(150mm)', params = params)
 
 ## collecting Eigenvalues
-eval = calc_evals(VERT,TRIV)
-np.savetxt('Expected Values/rect1x6.txt', eval)
+# eval = calc_evals(VERT,TRIV)
+# eval= RATriangle(0.5)
+np.savetxt('Frequencies/rect(0.15x0.3)(HZ).txt', hertz(evals_t))

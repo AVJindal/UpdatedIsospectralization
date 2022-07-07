@@ -261,7 +261,6 @@ def prepare_mesh(VERT, TRIV, dtype='float32'):
             nx_e = nx_e[[1, 0]]
         ord_list.append(nx_e)
     ord_list = np.asarray(ord_list)
-    print(len(VERT))
 
     return np.asarray(VERT,
                       dtype), TRIV, n, m, Ik, Ih, Ik_k, Ih_k, Tpi, Txi, Tni, iM, Windices, Ael, Bary, bound_edges, ord_list
