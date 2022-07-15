@@ -64,9 +64,18 @@ mesh = prepare_mesh(VERT,TRIV,'float32')
 ## Cylinder
 # [VERT_t, TRIV_t] = load_ply('data/Cylinder/Cylinder2.ply')
 # evals_t = calc_evals(VERT_t,TRIV_t)
-# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Cylinder', params = params)
+
+
+[VERT_t, TRIV_t] = load_ply('data/Prisms/prism(1x1x0.15).ply')
+evals_t = calc_evals(VERT_t,TRIV_t)
+run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Cylinder', params = params)
 
 ## My prism eigenvalues
-evals_t= prism_evals(2,3,10)
-run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/2x3x10frcube', params = params)
+# evals_t= prism_evals(1,0.5,0.15)
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/2x3x10frcube', params = params)
+# [VERT_t, TRIV_t] = load_ply('data/Prisms/prism(1x1x0.15).ply')
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# np.savetxt('Frequencies/prism(1x0.5x0.15)(HZ).txt', hertz(evals_t))
+
+
 

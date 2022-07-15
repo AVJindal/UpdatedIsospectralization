@@ -23,7 +23,7 @@ class OptimizationParams:
         self.remesh_step = 500
         
         self.decay_target = 0.05
-        self.learning_rate = 0.005
+        self.learning_rate = 0.99
         self.min_eval_loss = 0.05
         
         self.flip_penalty_reg = 1e10
@@ -150,7 +150,7 @@ def build_graph(mesh, evals, nevals, step=1.0, params=OptimizationParams()):
         graph.cost_bound = graph.cost_evals + graph.flip_cost + graph.bound_reg_cost
         graph.cost_inner = graph.inner_reg_cost + graph.flip_cost
         
-        optimizer = tf.train.AdamOptimizer(params.learning_rate) #################################################################Optimizer
+        optimizer = tf.train.AdagradOptimizer(params.learning_rate) #################################################################Optimizer
         
         def clipped_grad_minimize(cost, variables):
             gvs = optimizer.compute_gradients(cost, var_list=variables)

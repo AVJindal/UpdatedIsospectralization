@@ -2,6 +2,7 @@ from shape_library import *
 from spectrum_alignment import *
 import numpy as np
 
+a=343 #m/s
 
 def vert_triv(object, path):
     shape = open(object, 'r')
@@ -44,16 +45,19 @@ def vert_triv(object, path):
     # np.savetxt("%s/mesh.vert" %path, vertices)
     # np.savetxt("%s/mesh.triv" %path, faces)
 
+def hertz(values):
+    new= []
+    for i in range(len(values)):
+        new.append(values[i]/(2*np.pi))
+    return np.array(new)
+
 
 def prism_evals(L, H, D):
-    lim=100
+    lim = 4
     evals = []
     for (n) in range(1, lim):
-        evals.append((n * np.pi / L) )
-        evals.append((n * np.pi / H) )
-        evals.append((n * np.pi / D) )
         for k in range(1,lim):
             for i in range(1, lim):
-                evals.append(np.pi*((n/L)**2 +(k/H)**2 + (i/D)**2) ** (1/2))
+                evals.append(a*np.pi*((n/L)**2 +(k/H)**2 + (i/D)**2) ** (1/2))
     evals.sort()
     return np.array(evals)

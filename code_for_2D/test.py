@@ -18,7 +18,7 @@ params.plot=False
 # vert_triv('data/Square/Square.obj', 'data/Square/')
 # [VERT, TRIV] = load_ply('data/Square/Round Square.ply');
 
-# [VERT, TRIV] = load_ply('data/Star/SmoothStar3.ply'); # Star setup
+[VERT, TRIV] = load_ply('data/Star/SmoothStar3.ply'); # Star setup
 
 # Circle Setup (Apple)
 # vert_triv('data/Circle/Circle.obj', 'data/Circle/')
@@ -80,10 +80,10 @@ mesh = prepare_mesh(VERT,TRIV,'float32')
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Heart', params = params)
 
 # ## Star
-# [VERT_t, TRIV_t] = load_ply('data/Star/Star2.ply')
-# # [VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
-# evals_t = calc_evals(VERT_t,TRIV_t)
-# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Star', params = params)
+[VERT_t, TRIV_t] = load_ply('data/Star/StubbyStar2.ply')
+# [VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
+evals_t = calc_evals(VERT_t,TRIV_t)
+run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Star', params = params)
 
 ##Stubby star
 # [VERT_t, TRIV_t] = load_ply('data/Star/SmoothStar.ply')
@@ -118,8 +118,8 @@ mesh = prepare_mesh(VERT,TRIV,'float32')
 # evals_t= rectangle_evals(1,0.5)
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/n1to500', params = params)
 
-[VERT_t, TRIV_t] = load_ply('data/Simple shapes/Rect(0.15x0.3).ply');
-evals_t = calc_evals(VERT_t,TRIV_t)
+# [VERT_t, TRIV_t] = load_ply('data/Simple shapes/Rect(0.15x0.3).ply');
+# evals_t = calc_evals(VERT_t,TRIV_t)
 # evals_t = RATriangle(0.5)
 # run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/RAT(0.5)', params = params)
 
@@ -131,4 +131,4 @@ evals_t = calc_evals(VERT_t,TRIV_t)
 ## collecting Eigenvalues
 # eval = calc_evals(VERT,TRIV)
 # eval= RATriangle(0.5)
-np.savetxt('Frequencies/rect(0.15x0.3)(HZ).txt', hertz(evals_t))
+# np.savetxt('Frequencies/prism(0.15x0.3)(HZ).txt', hertz(evals_t))
