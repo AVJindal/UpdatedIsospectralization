@@ -8,7 +8,7 @@ import scipy
 from shape_library import *
 from IPython.display import clear_output
 
-from Plots import *
+# from Plots import *
 
 import matplotlib.pyplot as plt
 
@@ -201,7 +201,7 @@ def run_optimization(mesh, target_evals, out_path, params = OptimizationParams()
           edg_v[ord_list] = 1
 
           #Build tensorflow graph
-          graph = build_graph(mesh,target_evals, nevals,step, algorithm, learningrate)#,smoothing,numsteps,edg_v)
+          graph = build_graph(mesh,target_evals, nevals,step, params= OptimizationParams(),algorithm= algorithm, learningrate= learningrate)#,smoothing,numsteps,edg_v)
           tf.global_variables_initializer().run()
 
           tic()
