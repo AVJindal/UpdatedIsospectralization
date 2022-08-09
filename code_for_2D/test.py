@@ -9,16 +9,16 @@ from Conversions import *
 params = OptimizationParams()
 params.evals = [20]
 params.numsteps = 8000
-params.plot=False
+params.plot= False
 
 
-[VERT, TRIV] = load_mesh('data/oval/'); # Oval Setup (Bell, Mickey)
+[VERT, TRIV] = load_mesh('data/oval/') # Oval Setup (Bell, Mickey)
 
 # # Square setup (stepfunc)
 # vert_triv('data/Square/Square.obj', 'data/Square/')
 # [VERT, TRIV] = load_ply('data/Square/Round Square.ply');
 
-[VERT, TRIV] = load_ply('data/Star/SmoothStar3.ply'); # Star setup
+# [VERT, TRIV] = load_ply('data/Star/SmoothStar3.ply'); # Star setup
 
 # Circle Setup (Apple)
 # vert_triv('data/Circle/Circle.obj', 'data/Circle/')
@@ -74,16 +74,16 @@ mesh = prepare_mesh(VERT,TRIV,'float32')
 
 
 # Heart (mine) - actually works!
-# [VERT_t, TRIV_t] = load_ply('data/Heart/heart.ply')
-# #[VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
-# evals_t = calc_evals(VERT_t,TRIV_t)
-# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Heart', params = params)
+[VERT_t, TRIV_t] = load_ply('data/Heart/heart.ply')
+#[VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
+evals_t = calc_evals(VERT_t,TRIV_t)
+run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Heart', params = params)
 
 # ## Star
-[VERT_t, TRIV_t] = load_ply('data/Star/StubbyStar2.ply')
-# [VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
-evals_t = calc_evals(VERT_t,TRIV_t)
-run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Star', params = params)
+# [VERT_t, TRIV_t] = load_ply('data/Star/StubbyStar2.ply')
+# # [VERT_t,TRIV_t] = resample(VERT_t, TRIV_t, 300)
+# evals_t = calc_evals(VERT_t,TRIV_t)
+# run_optimization(mesh = mesh, target_evals = evals_t, out_path = 'results/Star', params = params)
 
 ##Stubby star
 # [VERT_t, TRIV_t] = load_ply('data/Star/SmoothStar.ply')

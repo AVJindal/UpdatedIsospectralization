@@ -8,6 +8,8 @@ import scipy
 from shape_library import *
 from IPython.display import clear_output
 
+from Plots import *
+
 import matplotlib.pyplot as plt
 
 tf.disable_eager_execution()
@@ -79,7 +81,7 @@ def calc_evals(VERT,TRIV):
     return tfeval(evals)
 
     
-def build_graph(mesh, evals, nevals, step=1.0, params=OptimizationParams()): 
+def build_graph(mesh, evals, nevals, step=1.0, params=OptimizationParams(), algorithm= "AdagradOptimizer", learningrate=0.99):
         """Build the tensorflow graph
         
         Input arguments:
@@ -149,9 +151,16 @@ def build_graph(mesh, evals, nevals, step=1.0, params=OptimizationParams()):
         #inner and outer points cost functions
         graph.cost_bound = graph.cost_evals + graph.flip_cost + graph.bound_reg_cost
         graph.cost_inner = graph.inner_reg_cost + graph.flip_cost
-        
-        optimizer = tf.train.AdagradOptimizer(params.learning_rate) #################################################################Optimizer
-        
+
+        #optimizer = tf.train.AdagradOptimizer(params.learning_rate) #################################################################Optimizer
+        if algorithm== "AdamOptimizer":
+            optimizer = tf.train.AdamOptimizer(learningrate)
+        elif algorithm== "AdagradOptimizer":
+            optimizer = tf.train.AdagradOptimizer(learningrate)
+        elif algorithm== "AdadeltaOptimizer":
+            optimizer = tf.train.AdadeltaOptimizer(learningrate)
+
+
         def clipped_grad_minimize(cost, variables):
             gvs = optimizer.compute_gradients(cost, var_list=variables)
             clipped_gvs = [(tf.clip_by_value(grad, -0.0001, 0.0001), var) for grad, var in gvs if grad!=None]
@@ -163,8 +172,8 @@ def build_graph(mesh, evals, nevals, step=1.0, params=OptimizationParams()):
         return graph
 
     
-    
-def run_optimization(mesh, target_evals, out_path, params = OptimizationParams() ):
+iteration_error= []
+def run_optimization(mesh, target_evals, out_path, params = OptimizationParams(), algorithm= "AdagradOptimizer", learningrate= 0.99):
     
     gpu_options = tf.GPUOptions(allow_growth = True)
     config = tf.ConfigProto(device_count={'CPU': 1, 'GPU': 1}, allow_soft_placement = False, gpu_options=gpu_options)
@@ -176,7 +185,8 @@ def run_optimization(mesh, target_evals, out_path, params = OptimizationParams()
         pass
 
     [Xopt,TRIV,n, m, Ik, Ih, Ik_k, Ih_k, Tpi, Txi, Tni, iM, Windices, Ael, Bary, bound_edges, ord_list] = mesh
-    
+
+
     iterations = [];
     for nevals in params.evals:
       tf.reset_default_graph()
@@ -190,8 +200,8 @@ def run_optimization(mesh, target_evals, out_path, params = OptimizationParams()
           edg_v = np.zeros((n,1),np.float32)
           edg_v[ord_list] = 1
 
-          #Buil tensorflow graph
-          graph = build_graph(mesh,target_evals, nevals,step)#,smoothing,numsteps,edg_v)
+          #Build tensorflow graph
+          graph = build_graph(mesh,target_evals, nevals,step, algorithm, learningrate)#,smoothing,numsteps,edg_v)
           tf.global_variables_initializer().run()
 
           tic()
@@ -210,6 +220,7 @@ def run_optimization(mesh, target_evals, out_path, params = OptimizationParams()
                     _, er, ee, Xopt_t = session.run([graph.train_op_bound,graph.cost_bound,graph.cost_evals,graph.X], feed_dict=feed_dict)
                 
                 iterations.append((step, nevals, er, ee,int(step/10)%2))
+                iteration_error.append((step,ee))############
 
                 
                 if ( (step) % params.checkpoint == 0 or step==(params.numsteps-1) or step==1): 
@@ -219,7 +230,8 @@ def run_optimization(mesh, target_evals, out_path, params = OptimizationParams()
                     cost, cost_evals, cost_vcL, cost_vcW, decay, flip, evout = session.run([graph.cost_bound, graph.cost_evals, graph.inner_reg_cost,graph.bound_reg_cost, graph.decay, graph.cp,graph.evals], feed_dict=feed_dict)
 
                     print('Iter %f, cost: %f(evals cost: %f (%f) (%f), smoothness weight: %f). Flip: %d' %
-                          (step, cost, cost_evals, cost_vcL, cost_vcW, decay, np.sum(flip<0)))  
+                          (step, cost, cost_evals, cost_vcL, cost_vcW, decay, np.sum(flip<0)))
+
 
                     if params.plot:
 #                         fig=plt.figure(figsize=(9, 4), dpi= 80, facecolor='w', edgecolor='k')
@@ -235,12 +247,15 @@ def run_optimization(mesh, target_evals, out_path, params = OptimizationParams()
                     np.savetxt('%s/evals_%d_iter%d.txt' % (out_path,nevals,step),evout)
 
                     np.savetxt('%s/iterations.txt' % (out_path),iterations)
+
                     #early stop
                     if(ee<params.min_eval_loss):
                         step=params.numsteps
                         print('Minimum eighenvalues loss reached')
                         break
-                    
+
+
+
             except KeyboardInterrupt:
                 step = params.numsteps
                 break;
@@ -255,8 +270,13 @@ def run_optimization(mesh, target_evals, out_path, params = OptimizationParams()
               Xopt=Xopt+(np.random.rand(np.shape(Xopt)[0],np.shape(Xopt)[1])-0.5)*1e-3                  
               _ = session.run(graph.set_global_step, feed_dict = {graph.global_step_val: step})  
             else:
-              Xopt=Xopt_t     
+              Xopt=Xopt_t
+
           if(step<params.numsteps-1):
               [Xopt,TRIV] = resample(Xopt, TRIV)
-                
+
+    # np.savetxt("Graphs/iterations_error.txt", iteration_error)##########################
+    iter_error= np.array(iteration_error)
+    # iterations_error(iter_error)
+    return iter_error
   
